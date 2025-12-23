@@ -127,3 +127,13 @@ repositories:
     type: git
     url: https://github.com/tier4/agnocast.git
     version: 2.1.2
+  # sensor_kit
+  sensor_kit/nissan_SENSOR_KIT_launch:
+    type: git
+    url: https://github.com/fantasybarry/nissan_SENSOR_KIT_launch.git
+    version: main
+  # vehicle
+  vehicle/nissan_vehicle_launch:
+    type: git
+    url: https://github.com/fantasybarry/nissan_vehicle_launch.git
+    version: main

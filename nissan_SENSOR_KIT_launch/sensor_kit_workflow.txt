@@ -1,0 +1,40 @@
+### Autoware Sensor Kit Integration Workflow
+
+#### 1. Driver Setup (The "Brain")
+Goal: Ensure the software driver for your hardware is running and publishing data.
+- Locate the specific launch file:
+    * IMU: imu_sensor_kit_launch/launch/imu.launch.xml
+    * GPS: gps_sensor_kit_launch/launch/gnss.launch.xml
+- Action: Edit these files to <include> the driver provided by your hardware vendor (e.g., xsens, ublox, novatel).
+- Verify: Ensure topics are remapped to standard Autoware names (e.g., /sensing/imu/imu_data, /sensing/gnss/pose).
+
+#### 2. Description Setup (The "Body")
+Goal: Define the visual link structure so ROS knows the sensor exists.
+- Locate: ..._description/urdf/sensors.xacro
+- Action: Define the joint and link for your sensor.
+- Reference: Use the calibration property to read values from your YAML file automatically.
+
+#### 3. Calibration (The "Position")
+Goal: Tell the system exactly where the sensor is mounted relative to the kit base.
+- Locate: ..._description/config/sensor_kit_calibration.yaml
+- Action: Update x, y, z (meters) and roll, pitch, yaw (radians).
+- Tip: These values define the transform from sensor_kit_base_link -> your_sensor_link.
+
+#### 4. Build the Packages
+Goal: Compile the new packages so ROS 2 can find them.
+- Go to your workspace root (e.g., /home/barry/autoware).
+- Action: Run the build command:
+    colcon build --symlink-install --packages-select imu_sensor_kit_launch imu_sensor_kit_description gps_sensor_kit_launch gps_sensor_kit_description
+- Source the setup: source install/setup.bash
+
+#### 5. Integration & Launch
+Goal: Run the sensor kit and verify data.
+- Launch:
+    ros2 launch imu_sensor_kit_launch sensing.launch.xml
+    # OR
+    ros2 launch gps_sensor_kit_launch sensing.launch.xml
+- Verify Topics:
+    ros2 topic list
+    ros2 topic echo /sensing/imu/imu_data
+- Verify TF (Transforms):
+    ros2 run tf2_tools view_frames.py
