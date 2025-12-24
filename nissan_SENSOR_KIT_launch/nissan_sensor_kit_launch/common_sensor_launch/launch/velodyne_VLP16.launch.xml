@@ -7,11 +7,11 @@
   <arg name="sensor_frame" default="velodyne"/>
   <arg name="return_mode" default="SingleStrongest"/>
   <arg name="sensor_ip" default="192.168.1.201"/>
-  <arg name="host_ip" default="255.255.255.255"/>
+  <arg name="host_ip" default="192.168.1.100"/>
   <arg name="data_port" default="2368"/>
-  <arg name="scan_phase" default="0.0"/>
-  <arg name="cloud_min_angle" default="0"/>
-  <arg name="cloud_max_angle" default="360"/>
+  <arg name="scan_phase" default="360.0"/>
+  <arg name="cloud_min_angle" default="-180"/>
+  <arg name="cloud_max_angle" default="180"/>
   <arg name="vehicle_mirror_param_file"/>
   <arg name="container_name" default="velodyne_node_container"/>
   <arg name="udp_only" default="false"/>
